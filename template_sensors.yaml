@@ -1,0 +1,166 @@
+# Template sensorit - Muotoilee bussiaikataulut luettaviksi
+# Käytetään configuration.yaml:ssa: template: !include bussiaikataulu/template_sensors.yaml
+
+# Pysäkki 1 - Muotoiltu aikataulu
+- sensor:
+      - name: "Bussiaikataulu Pysäkki 1"
+        unique_id: bussiaikataulu_pysakki_1
+        state: >
+          {% set data = state_attr('sensor.bussi_pysakki_1_raw', 'stoptimesWithoutPatterns') %}
+          {% if data and data|length > 0 %}
+            {% set departure = data[0] %}
+            {% set service_day = departure.serviceDay %}
+            {% set realtime_dep = departure.realtimeDeparture %}
+            {% set departure_time = service_day + realtime_dep %}
+            {% set now_timestamp = as_timestamp(now()) %}
+            {% set minutes_until = ((departure_time - now_timestamp) / 60) | int %}
+            {% if minutes_until < 1 %}
+              Lähtee nyt
+            {% else %}
+              {{ minutes_until }} min
+            {% endif %}
+          {% else %}
+            Ei lähtöjä
+          {% endif %}
+        attributes:
+          lahto_1: >
+            {% set data = state_attr('sensor.bussi_pysakki_1_raw', 'stoptimesWithoutPatterns') %}
+            {% if data and data|length > 0 %}
+              {% set d = data[0] %}
+              {% set departure_time = d.serviceDay + d.realtimeDeparture %}
+              {% set minutes = ((departure_time - as_timestamp(now())) / 60) | int %}
+              {{ d.trip.route.shortName }} → {{ d.headsign }} | {{ (departure_time | timestamp_custom('%H:%M')) }} ({{ minutes }} min){{ ' 🔴' if d.realtime else '' }}
+            {% endif %}
+          lahto_2: >
+            {% set data = state_attr('sensor.bussi_pysakki_1_raw', 'stoptimesWithoutPatterns') %}
+            {% if data and data|length > 1 %}
+              {% set d = data[1] %}
+              {% set departure_time = d.serviceDay + d.realtimeDeparture %}
+              {% set minutes = ((departure_time - as_timestamp(now())) / 60) | int %}
+              {{ d.trip.route.shortName }} → {{ d.headsign }} | {{ (departure_time | timestamp_custom('%H:%M')) }} ({{ minutes }} min){{ ' 🔴' if d.realtime else '' }}
+            {% endif %}
+          lahto_3: >
+            {% set data = state_attr('sensor.bussi_pysakki_1_raw', 'stoptimesWithoutPatterns') %}
+            {% if data and data|length > 2 %}
+              {% set d = data[2] %}
+              {% set departure_time = d.serviceDay + d.realtimeDeparture %}
+              {% set minutes = ((departure_time - as_timestamp(now())) / 60) | int %}
+              {{ d.trip.route.shortName }} → {{ d.headsign }} | {{ (departure_time | timestamp_custom('%H:%M')) }} ({{ minutes }} min){{ ' 🔴' if d.realtime else '' }}
+            {% endif %}
+          lahto_4: >
+            {% set data = state_attr('sensor.bussi_pysakki_1_raw', 'stoptimesWithoutPatterns') %}
+            {% if data and data|length > 3 %}
+              {% set d = data[3] %}
+              {% set departure_time = d.serviceDay + d.realtimeDeparture %}
+              {% set minutes = ((departure_time - as_timestamp(now())) / 60) | int %}
+              {{ d.trip.route.shortName }} → {{ d.headsign }} | {{ (departure_time | timestamp_custom('%H:%M')) }} ({{ minutes }} min){{ ' 🔴' if d.realtime else '' }}
+            {% endif %}
+          lahto_5: >
+            {% set data = state_attr('sensor.bussi_pysakki_1_raw', 'stoptimesWithoutPatterns') %}
+            {% if data and data|length > 4 %}
+              {% set d = data[4] %}
+              {% set departure_time = d.serviceDay + d.realtimeDeparture %}
+              {% set minutes = ((departure_time - as_timestamp(now())) / 60) | int %}
+              {{ d.trip.route.shortName }} → {{ d.headsign }} | {{ (departure_time | timestamp_custom('%H:%M')) }} ({{ minutes }} min){{ ' 🔴' if d.realtime else '' }}
+            {% endif %}
+          pysakki_nimi: "{{ states('sensor.bussi_pysakki_1_raw') }}"
+          pysakki_koodi: "{{ state_attr('sensor.bussi_pysakki_1_raw', 'code') }}"
+
+# Pysäkki 2 - Muotoiltu aikataulu
+- sensor:
+      - name: "Bussiaikataulu Pysäkki 2"
+        unique_id: bussiaikataulu_pysakki_2
+        state: >
+          {% set data = state_attr('sensor.bussi_pysakki_2_raw', 'stoptimesWithoutPatterns') %}
+          {% if data and data|length > 0 %}
+            {% set departure = data[0] %}
+            {% set service_day = departure.serviceDay %}
+            {% set realtime_dep = departure.realtimeDeparture %}
+            {% set departure_time = service_day + realtime_dep %}
+            {% set now_timestamp = as_timestamp(now()) %}
+            {% set minutes_until = ((departure_time - now_timestamp) / 60) | int %}
+            {% if minutes_until < 1 %}
+              Lähtee nyt
+            {% else %}
+              {{ minutes_until }} min
+            {% endif %}
+          {% else %}
+            Ei lähtöjä
+          {% endif %}
+        attributes:
+          lahto_1: >
+            {% set data = state_attr('sensor.bussi_pysakki_2_raw', 'stoptimesWithoutPatterns') %}
+            {% if data and data|length > 0 %}
+              {% set d = data[0] %}
+              {% set departure_time = d.serviceDay + d.realtimeDeparture %}
+              {% set minutes = ((departure_time - as_timestamp(now())) / 60) | int %}
+              {{ d.trip.route.shortName }} → {{ d.headsign }} | {{ (departure_time | timestamp_custom('%H:%M')) }} ({{ minutes }} min){{ ' 🔴' if d.realtime else '' }}
+            {% endif %}
+          lahto_2: >
+            {% set data = state_attr('sensor.bussi_pysakki_2_raw', 'stoptimesWithoutPatterns') %}
+            {% if data and data|length > 1 %}
+              {% set d = data[1] %}
+              {% set departure_time = d.serviceDay + d.realtimeDeparture %}
+              {% set minutes = ((departure_time - as_timestamp(now())) / 60) | int %}
+              {{ d.trip.route.shortName }} → {{ d.headsign }} | {{ (departure_time | timestamp_custom('%H:%M')) }} ({{ minutes }} min){{ ' 🔴' if d.realtime else '' }}
+            {% endif %}
+          lahto_3: >
+            {% set data = state_attr('sensor.bussi_pysakki_2_raw', 'stoptimesWithoutPatterns') %}
+            {% if data and data|length > 2 %}
+              {% set d = data[2] %}
+              {% set departure_time = d.serviceDay + d.realtimeDeparture %}
+              {% set minutes = ((departure_time - as_timestamp(now())) / 60) | int %}
+              {{ d.trip.route.shortName }} → {{ d.headsign }} | {{ (departure_time | timestamp_custom('%H:%M')) }} ({{ minutes }} min){{ ' 🔴' if d.realtime else '' }}
+            {% endif %}
+          lahto_4: >
+            {% set data = state_attr('sensor.bussi_pysakki_2_raw', 'stoptimesWithoutPatterns') %}
+            {% if data and data|length > 3 %}
+              {% set d = data[3] %}
+              {% set departure_time = d.serviceDay + d.realtimeDeparture %}
+              {% set minutes = ((departure_time - as_timestamp(now())) / 60) | int %}
+              {{ d.trip.route.shortName }} → {{ d.headsign }} | {{ (departure_time | timestamp_custom('%H:%M')) }} ({{ minutes }} min){{ ' 🔴' if d.realtime else '' }}
+            {% endif %}
+          lahto_5: >
+            {% set data = state_attr('sensor.bussi_pysakki_2_raw', 'stoptimesWithoutPatterns') %}
+            {% if data and data|length > 4 %}
+              {% set d = data[4] %}
+              {% set departure_time = d.serviceDay + d.realtimeDeparture %}
+              {% set minutes = ((departure_time - as_timestamp(now())) / 60) | int %}
+              {{ d.trip.route.shortName }} → {{ d.headsign }} | {{ (departure_time | timestamp_custom('%H:%M')) }} ({{ minutes }} min){{ ' 🔴' if d.realtime else '' }}
+            {% endif %}
+          pysakki_nimi: "{{ states('sensor.bussi_pysakki_2_raw') }}"
+          pysakki_koodi: "{{ state_attr('sensor.bussi_pysakki_2_raw', 'code') }}"
+
+# Yhdistetty näkymä - Näyttää molemmat pysäkit yhdessä
+- sensor:
+      - name: "Bussiaikataulu Yhdistetty"
+        unique_id: bussiaikataulu_yhdistetty
+        state: >
+          {% set p1 = states('sensor.bussiaikataulu_pysakki_1') %}
+          {% set p2 = states('sensor.bussiaikataulu_pysakki_2') %}
+          {% if p1 != 'Ei lähtöjä' %}
+            Seuraava: {{ p1 }}
+          {% elif p2 != 'Ei lähtöjä' %}
+            Seuraava: {{ p2 }}
+          {% else %}
+            Ei lähtöjä
+          {% endif %}
+        attributes:
+          kaikki_lahdot: |
+            PYSÄKKI 1: {{ state_attr('sensor.bussiaikataulu_pysakki_1', 'pysakki_nimi') }}
+            {% for i in range(1, 6) %}
+            {% set attr_name = 'lahto_' ~ i %}
+            {% set lahto = state_attr('sensor.bussiaikataulu_pysakki_1', attr_name) %}
+            {% if lahto %}
+            {{ i }}. {{ lahto }}
+            {% endif %}
+            {% endfor %}
+            
+            PYSÄKKI 2: {{ state_attr('sensor.bussiaikataulu_pysakki_2', 'pysakki_nimi') }}
+            {% for i in range(1, 6) %}
+            {% set attr_name = 'lahto_' ~ i %}
+            {% set lahto = state_attr('sensor.bussiaikataulu_pysakki_2', attr_name) %}
+            {% if lahto %}
+            {{ i }}. {{ lahto }}
+            {% endif %}
+            {% endfor %}

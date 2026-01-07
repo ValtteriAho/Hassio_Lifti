@@ -1,0 +1,52 @@
+# Example REST Sensor Configuration for Digitransit Bus Timetables
+# Copy this file and rename to sensor_config.yaml
+# Replace YOUR_API_KEY with your Digitransit API key
+# Replace CITY:STOPCODE with your actual stop codes
+
+# Stop 1 Configuration
+- resource: https://api.digitransit.fi/routing/v2/ROUTER/gtfs/v1
+  method: POST
+  payload: '{ "query": "{ stop(id: \"CITY:STOPCODE\") { name code stoptimesWithoutPatterns(numberOfDepartures: 5) { scheduledDeparture realtimeDeparture realtime serviceDay headsign trip { route { shortName longName } } } } }" }'
+  headers:
+    Content-Type: application/json
+    digitransit-subscription-key: "YOUR_API_KEY"
+    User-Agent: Home-Assistant
+  scan_interval: 60
+  sensor:
+    - name: "Bussi Pysäkki 1 Raw"
+      unique_id: bussi_pysakki_1_raw
+      value_template: "{{ value_json.data.stop.name }}"
+      json_attributes_path: "$.data.stop"
+      json_attributes:
+        - stoptimesWithoutPatterns
+        - code
+
+# Stop 2 Configuration
+- resource: https://api.digitransit.fi/routing/v2/ROUTER/gtfs/v1
+  method: POST
+  payload: '{ "query": "{ stop(id: \"CITY:STOPCODE2\") { name code stoptimesWithoutPatterns(numberOfDepartures: 5) { scheduledDeparture realtimeDeparture realtime serviceDay headsign trip { route { shortName longName } } } } }" }'
+  headers:
+    Content-Type: application/json
+    digitransit-subscription-key: "YOUR_API_KEY"
+    User-Agent: Home-Assistant
+  scan_interval: 60
+  sensor:
+    - name: "Bussi Pysäkki 2 Raw"
+      unique_id: bussi_pysakki_2_raw
+      value_template: "{{ value_json.data.stop.name if value_json.data.stop else 'Ei tiedossa' }}"
+      json_attributes_path: "$.data.stop"
+      json_attributes:
+        - stoptimesWithoutPatterns
+        - code
+
+# ROUTER values by city:
+# - hsl (Helsinki region)
+# - waltti (Turku, Tampere, Jyväskylä, Kuopio, Lahti, Oulu, Vaasa, etc.)
+# - finland (National data)
+#
+# CITY:STOPCODE format examples:
+# - Helsinki: HSL:1010105
+# - Tampere: tampere:0001
+# - Turku: FOLI:1
+# - Oulu: oulu:1001
+# - Vaasa: Vaasa:159712

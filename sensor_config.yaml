@@ -1,0 +1,38 @@
+# Digitransit REST Sensorit - Vaasan paikallisliikenne
+# Käytetään configuration.yaml:ssa: rest: !include bussiaikataulu/sensor_config.yaml
+
+# Pysäkki 1: Melaniementie / Kaarnatie B (Vaasa:159712)
+- resource: https://api.digitransit.fi/routing/v2/waltti/gtfs/v1
+  method: POST
+  payload: '{ "query": "{ stop(id: \"Vaasa:159712\") { name code stoptimesWithoutPatterns(numberOfDepartures: 5) { scheduledDeparture realtimeDeparture realtime serviceDay headsign trip { route { shortName longName } } } } }" }'
+  headers:
+    Content-Type: application/json
+    digitransit-subscription-key: "831ecd5c45b64723a111003127051514"
+    User-Agent: Home-Assistant
+  scan_interval: 60
+  sensor:
+    - name: "Bussi Pysäkki 1 Raw"
+      unique_id: bussi_pysakki_1_raw
+      value_template: "{{ value_json.data.stop.name }}"
+      json_attributes_path: "$.data.stop"
+      json_attributes:
+        - stoptimesWithoutPatterns
+        - code
+
+# Pysäkki 2: Melaniementie / Kaarnatie A (Vaasa:302812)
+- resource: https://api.digitransit.fi/routing/v2/waltti/gtfs/v1
+  method: POST
+  payload: '{ "query": "{ stop(id: \"Vaasa:302812\") { name code stoptimesWithoutPatterns(numberOfDepartures: 5) { scheduledDeparture realtimeDeparture realtime serviceDay headsign trip { route { shortName longName } } } } }" }'
+  headers:
+    Content-Type: application/json
+    digitransit-subscription-key: "831ecd5c45b64723a111003127051514"
+    User-Agent: Home-Assistant
+  scan_interval: 60
+  sensor:
+    - name: "Bussi Pysäkki 2 Raw"
+      unique_id: bussi_pysakki_2_raw
+      value_template: "{{ value_json.data.stop.name if value_json.data.stop else 'Ei tiedossa' }}"
+      json_attributes_path: "$.data.stop"
+      json_attributes:
+        - stoptimesWithoutPatterns
+        - code
