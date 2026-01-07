@@ -1,25 +1,29 @@
-# 🚌 Digitransit Bus Timetables for Home Assistant
+# 🚌 Vaasa Lifti - Home Assistant Integration
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
-[![GitHub release](https://img.shields.io/github/release/YOUR_USERNAME/ha-digitransit-bus.svg)](https://github.com/YOUR_USERNAME/ha-digitransit-bus/releases)
-[![License](https://img.shields.io/github/license/YOUR_USERNAME/ha-digitransit-bus.svg)](LICENSE)
+[![GitHub release](https://img.shields.io/github/release/valtteri-aho/Hassio_Lifti.svg)](https://github.com/valtteri-aho/Hassio_Lifti/releases)
+[![License](https://img.shields.io/github/license/valtteri-aho/Hassio_Lifti.svg)](LICENSE)
 
-Display real-time Finnish bus schedules from Digitransit API directly in your Home Assistant dashboard.
+Display real-time Vaasa Lifti bus schedules from Digitransit API directly in your Home Assistant dashboard with easy UI-based configuration.
 
-This integration works with all Finnish cities using Digitransit: Helsinki (HSL), Tampere, Turku, Oulu, Vaasa, and more.
+## 📋 What's Included
 
-## 📋 Contents
+This repository provides two ways to integrate Vaasa Lifti with Home Assistant:
 
-This repository provides a complete configuration package for displaying Finnish bus timetables in Home Assistant.
+### **Option 1: Custom Component (Recommended)** ⭐
+Easy-to-install custom integration with UI-based configuration:
+- **custom_components/vaasa_lifti/** - Full Home Assistant custom component
+- UI-based setup - No YAML editing required
+- Automatic updates through HACS
+- Multiple stop monitoring
+- Real-time departure tracking
 
-**Files included:**
+### **Option 2: Manual YAML Configuration**
+Traditional YAML-based setup for advanced users:
 - **sensor_config.yaml** - REST sensors to fetch data from Digitransit API
 - **sensor_config.example.yaml** - Template configuration file with placeholders
 - **template_sensors.yaml** - Template sensors to format the data
 - **lovelace_card.yaml** - 4 different dashboard card options
-- **README.md** - Complete documentation
-- **info.md** - HACS information
-- **hacs.json** - HACS integration metadata
 
 ## 🎯 Features
 
